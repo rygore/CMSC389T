@@ -1,0 +1,19 @@
+name: clone workflow
+on:
+  workflow_dispatch:
+jobs:
+  job_one:
+    name: Clone
+    runs-on: ubuntu-latest
+    steps:
+      - name: testing
+        uses: appleboy/ssh-action@master
+        with: 
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+              cd ../pub/
+              ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+              git clone git@github.com:rygore/cmsc389T-web-template.git
